@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const phaseColors = ['#f97316', '#fbbf24', '#38bdf8', '#22c55e'];
+    /* Updated palette to match new UI */
+    const phaseColors = ['#7dd3fc', '#c084fc', '#34d399', '#fbbf24'];
 
     function hexToRgba(hex, alpha) {
         const normalized = hex.replace('#', '');
@@ -355,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentX = startPoint.x + easedProgress * (endPoint.x - startPoint.x);
         const currentY = startPoint.y + easedProgress * (endPoint.y - startPoint.y);
 
-        const accentColor = phaseColors[phase] || '#f97316';
+        const accentColor = phaseColors[phase] || '#7dd3fc';
         const shouldShowTrail = allowMotion && showTrail;
 
         const gradientKey = `${Math.round(size * 100)}-${accentColor}-${Math.round(adjustedLeft)}-${Math.round(adjustedTop)}`;
@@ -375,15 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = cachedGradient;
         ctx.fillRect(0, 0, width, height);
 
-        ctx.strokeStyle = hexToRgba('#fcd34d', 0.25);
+        ctx.strokeStyle = hexToRgba('#cbd5e1', 0.18);
         ctx.lineWidth = Math.max(2, size * 0.015);
         ctx.lineJoin = 'round';
         ctx.strokeRect(adjustedLeft, adjustedTop, size, size);
 
         ctx.lineWidth = Math.max(4, size * 0.03);
-        ctx.strokeStyle = hexToRgba(accentColor, shouldShowTrail ? 0.8 : 0.45);
-        ctx.shadowColor = hexToRgba(accentColor, 0.5);
-        ctx.shadowBlur = shouldShowTrail ? 15 : 8;
+        ctx.strokeStyle = hexToRgba(accentColor, shouldShowTrail ? 0.85 : 0.50);
+        ctx.shadowColor = hexToRgba(accentColor, 0.55);
+        ctx.shadowBlur = shouldShowTrail ? 18 : 10;
         ctx.beginPath();
         ctx.moveTo(points[0].x, points[0].y);
         for (let i = 1; i <= phase; i++) {
@@ -445,10 +446,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const phases = ['Inhale', 'Hold', 'Exhale', 'Wait'];
             html += `<div class="phase-tracker">`;
             phases.forEach((label, index) => {
-                const phaseColor = phaseColors[index] || '#fde68a';
+                const phaseColor = phaseColors[index] || '#7dd3fc';
                 const softPhaseColor = hexToRgba(phaseColor, 0.25);
                 html += `
-                    <div class="phase-item ${index === state.count ? 'active' : ''}" style="--phase-color: ${phaseColor}; --phase-soft: ${softPhaseColor};">
+                    <div class="phase-item ${index === state.count ? 'active' : ''}" style="--phase-color: ${phaseColor}; color: ${phaseColor};">
                         <span class="phase-dot"></span>
                         <span class="phase-label">${label}</span>
                     </div>
